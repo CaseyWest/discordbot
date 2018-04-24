@@ -1,0 +1,30 @@
+{
+  "name": "sosbot",
+  "version": "1.0.0",
+  "description": "a discord bot",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel-node ./src/app.js --presets latest,stage-2",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/CaseysZ28/sosbot.git"
+  },
+  "author": "Casey",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/CaseysZ28/sosbot#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "discord.js": "^11.3.2",
+    "dotenv": "^5.0.1",
+    "passport-bnet": "^1.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "nodemon": "^1.17.3",
+    "standard": "^11.0.1"
+  }
+}
