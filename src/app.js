@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import Discord from 'discord.js'
-import WowTokenService from './blizzard/tokenservice'
+import WowTokenService from './blizzard/wowTokenService'
 
 dotenv.load()
 
@@ -8,9 +8,7 @@ const commandPrefix = process.env.COMMAND_PREFIX
 const client = new Discord.Client()
 const tokenService = new WowTokenService()
 
-client.on('ready', () => {
-  console.log('ready')
-})
+client.on('ready', () => { })
 
 client.on('message', (message) => {
   if (message.author.bot) return

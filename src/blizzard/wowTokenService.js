@@ -1,18 +1,23 @@
-import dotenv from 'dotenv'
 import axios from 'axios'
-
-dotenv.load()
+import AuthTokens from '../db/authTokens'
 
 class WowTokenService {
   constructor () {
     this.tokenUrl = `https://us.battle.net/oauth/token?grant_type=client_credentials&client_id=${process.env.BLIZZARD_CLIENT_ID}&client_secret=${process.env.BLIZZARD_CLIENT_SECRET}`
     this.priceUrl = 'https://us.api.battle.net/data/wow/token/?namespace=dynamic-us&locale=en_US&access_token='
 
+    this.authTokens = new AuthTokens()
     this.accessToken = ''
-    axios.get(this.tokenUrl)
-      .then((res) => {
-        this.accessToken = res.data.access_token
-      })
+    this.authTokens.get('GameData', (token) => {
+      if (!token) {
+        axios.get(this.tokenUrl)
+          .then((res) => {
+            this.accessToken = res.data.access_token
+          })
+      } else {
+        this.accessToken = token.access_token
+      }
+    })
   }
 
   getPrice () {
