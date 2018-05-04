@@ -1,8 +1,10 @@
+import dotenv from 'dotenv'
 import Mongodb from 'mongodb'
 
 class Db {
   constructor () {
-    this.db = new Mongodb()
+    dotenv.load()
+    this.db = Mongodb()
   }
 
   client () {
@@ -10,7 +12,7 @@ class Db {
   }
 
   dbName () {
-    return 'discordbot'
+    return process.env.MONGODB_DB_NAME || 'discordbot'
   }
 
   getId (id) {
