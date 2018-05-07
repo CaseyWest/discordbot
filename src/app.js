@@ -57,7 +57,7 @@ client.on('message', (message) => {
               let bid = helper.getFormattedPrice(ahItem.bid)
               let buyout = helper.getFormattedPrice(ahItem.buyout)
 
-              message.channel.send(`${item.name} - ${ahItem.owner} \n quantity: ${ahItem.quantity} \n bid: ${bid.gold}g ${bid.silver}s ${bid.copper}c \n buyout:${buyout.gold}g ${buyout.silver}s ${buyout.copper}c`)
+              message.channel.send(`${item.name} - ${ahItem.owner} \n quantity: ${ahItem.quantity} \n bid: ${bid.gold}g ${bid.silver}s ${bid.copper}c \n buyout: ${buyout.gold}g ${buyout.silver}s ${buyout.copper}c`)
             })
             .catch((err) => {
               console.log(err)
