@@ -1,5 +1,4 @@
 import dotenv from 'dotenv'
-import assert from 'assert'
 import MongoDb from 'mongodb'
 
 dotenv.load()
@@ -21,16 +20,13 @@ class Auctions {
         .then((client) => {
           client.db(_this.dbName)
             .collection(_this.collection)
-            .find({'item': id})
+            .find({'item': Number(id)})
+            .sort({'bid': 1})
             .toArray()
-            .then((result) => {
-              console.log(result)
+            .then((docs) => {
               client.close()
-              resolve(result)
-            })
-            .catch((err) => {
-              console.log(err)
-              reject(err)
+              if (docs.length > 5) resolve(docs.slice(0, 5))
+              resolve(docs)
             })
         })
         .catch((err) => {

@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import axios from 'axios'
 import fs from 'fs'
 import Auctions from '../db/auctions'
@@ -35,7 +34,6 @@ class AuctionHouseService {
       _this.auctions
         .findByItemId(itemId)
         .then((item) => {
-          console.log(item)
           resolve(item)
         })
         .catch((err) => {
