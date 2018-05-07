@@ -1,14 +1,14 @@
 import dotenv from 'dotenv'
-import Mongodb from 'mongodb'
+import MongoDb from 'mongodb'
 
 class Db {
   constructor () {
     dotenv.load()
-    this.db = Mongodb()
+    this.MongoClient = new MongoDb().MongoClient
   }
 
   client () {
-    return this.db.MongoClient
+    return this.MongoClient
   }
 
   dbName () {

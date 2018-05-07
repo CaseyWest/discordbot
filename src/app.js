@@ -30,7 +30,7 @@ client.on('message', (message) => {
         price = price.toString()
         var copper = price.substring(price.length, price.length - 2)
         var silver = price.substring(price.length - 2, price.length - 4)
-        var gold = price.substring(0, price.length - 4)
+        var gold = Number(price.substring(0, price.length - 4)).toLocaleString(undefined, {maximumFractionDigits: 0})
 
         message.channel.send(`${message.author.toString()} :moneybag: ${gold}g ${silver}s ${copper}c`)
       })
@@ -40,9 +40,36 @@ client.on('message', (message) => {
     message.channel.send('usage: !price <itemId>')
   }
 
-  if (command === 'ahscan') {
+  if (command === 'ah-scan') {
     message.channel.send('this may take a few minutes')
-    auctionService.scan()
+    auctionService
+      .scan()
+      .then((msg) => {
+        message.channel.send(msg)
+      })
+      .then(() => {
+        message.channel.send('loading db')
+        auctionService
+          .loadDb()
+          .then((msg) => {
+            message.channel.send(msg)
+          })
+          .catch((err) => {
+            message.channel.send(err)
+          })
+      })
+  }
+
+  if (command === 'ah-dbload') {
+    message.channel.send('loading db')
+    auctionService
+      .loadDb()
+      .then((msg) => {
+        message.channel.send(msg)
+      })
+      .catch((err) => {
+        message.channel.send(err)
+      })
   }
 
   if (command === 'cmds') {
