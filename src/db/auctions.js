@@ -12,25 +12,32 @@ class Auctions {
     this.MongoClient = MongoDb.MongoClient
   }
 
-  findByItemId (id, callback) {
-    assert.notEqual(id, null)
+  findByItemId (id) {
+    let _this = this
+    return new Promise((resolve, reject) => {
+      if (!id) reject(new Error('id is required'))
 
-    // let self = this
-    // self.client.connect(self.dbUrl)
-    //   .then((err, db) => {
-    //     assert.equal(err, null)
-
-    //     db.collection(self.collection)
-    //       .find({ 'item': id })
-    //       .toArray((err, docs) => {
-    //         assert.equal(err, null)
-    //         db.close()
-    //         typeof callback === 'function' && callback(docs)
-    //       })
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
+      _this.MongoClient.connect(_this.dbUrl)
+        .then((client) => {
+          client.db(_this.dbName)
+            .collection(_this.collection)
+            .find({'item': id})
+            .toArray()
+            .then((result) => {
+              console.log(result)
+              client.close()
+              resolve(result)
+            })
+            .catch((err) => {
+              console.log(err)
+              reject(err)
+            })
+        })
+        .catch((err) => {
+          console.log(err)
+          reject(err)
+        })
+    })
   }
 
   load (auctions) {
@@ -50,6 +57,9 @@ class Auctions {
             .catch((err) => {
               reject(err)
             })
+        })
+        .catch((err) => {
+          reject(err)
         })
     })
   }

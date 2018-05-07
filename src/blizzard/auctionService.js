@@ -27,6 +27,23 @@ class AuctionHouseService {
     })
   }
 
+  price (itemId) {
+    let _this = this
+    return new Promise((resolve, reject) => {
+      if (!itemId) reject(new Error('itemmId is required'))
+
+      _this.auctions
+        .findByItemId(itemId)
+        .then((item) => {
+          console.log(item)
+          resolve(item)
+        })
+        .catch((err) => {
+          reject(err)
+        })
+    })
+  }
+
   scan () {
     return axios.get(this.url)
       .then((res) => {

@@ -37,7 +37,20 @@ client.on('message', (message) => {
   }
 
   if (command === 'price') {
-    message.channel.send('usage: !price <itemId>')
+    if (args.length === 0) {
+      message.channel.send('usage: !price <itemId>')
+      return
+    }
+
+    auctionService
+      .price(args[0])
+      .then((item) => {
+        console.log(item)
+        message.channel.send('blarg')
+      })
+      .catch((err) => {
+        message.channel.send(err)
+      })
   }
 
   if (command === 'ah-scan') {
